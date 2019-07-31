@@ -1,8 +1,8 @@
 from mkmsdk.mkm import Mkm
 from mkmsdk.api_map import _API_MAP
-from config import getConfig
+from CardMarketPriceManager.config import getConfig
 
-from CardCategory import CardCategory
+from CardMarketPriceManager.CardCategory import CardCategory
 
 config = getConfig()
 cardMarket = Mkm(_API_MAP["2.0"]["api"], _API_MAP["2.0"]["api_root"])
