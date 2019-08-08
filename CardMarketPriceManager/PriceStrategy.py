@@ -58,7 +58,7 @@ class PriceStrategy:
     def findPrice(self, card):
         article_response = self.findRelevantArticles(card)
 
-        priceArray = list(map(lambda x: x["price"], article_response["article"]))
+        priceArray = list(map(lambda x: x["price"] if not x["isPlayset"] else x["price"] / 4, article_response["article"]))
         targetPrice = 0.0
 
         if len(priceArray) > 0:
