@@ -56,8 +56,8 @@ while stock_response is not None:
             cardMarket.stock_management.change_articles(data=postData)
             postData = {"article": []}
 
-    if (len(postData["article"])) > 0:
-        cardMarket.stock_management.change_articles(data=postData)
-
     stock_response = checkForNextSite(stock_response, cardMarket)
+
+if (len(postData["article"])) > 0:
+    cardMarket.stock_management.change_articles(data=postData)
 
