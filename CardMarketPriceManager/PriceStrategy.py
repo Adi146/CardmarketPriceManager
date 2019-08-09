@@ -91,7 +91,7 @@ class PriceStrategy:
             "maxResults": 1000
         }
 
-        if self.compareCardLanguage is bool and self.compareCardLanguage:
+        if type(self.compareCardLanguage) is bool and self.compareCardLanguage:
             article_request_params["idLanguage"] = card["language"]["idLanguage"]
         if self.compareFoil:
             article_request_params["isFoil"] = str(card["isFoil"]).lower()
