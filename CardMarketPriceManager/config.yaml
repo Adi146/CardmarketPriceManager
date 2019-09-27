@@ -7,6 +7,7 @@ Categories:
       Rarities:
         - Rare
         - Mythic
+      MaxPrice: 5.0
     PriceStrategy:
       # compare with other german and english offers which condition is max one step worse than yours
       # (e.g. if your card is Near Mint than compare it with Excellent and higher)
@@ -29,6 +30,7 @@ Categories:
         - Rare
         - Mythic
       Foil: false
+      MaxPrice: 5.0
     PriceStrategy:
       ComparisionAttributes:
         # don´t check card languages
@@ -48,6 +50,8 @@ Categories:
         - English
       Rarities:
         - Uncommon
+        - Common
+      MaxPrice: 5.0
     PriceStrategy:
       ComparisionAttributes:
         CardLanguage:
@@ -64,7 +68,9 @@ Categories:
   - Category:
       Rarities:
         - Uncommon
+        - Common
       Foil: false
+      MaxPrice: 5.0
     PriceStrategy:
       ComparisionAttributes:
         CardLanguage: false
@@ -75,5 +81,25 @@ Categories:
         Condition: 1
       TargetPrice: Lowest
       Min: 0.05
+      Offset: 0
+  - Category:
+      # all other rares and mythic from different languages which are not foil
+      Rarities:
+        - Rare
+        - Mythic
+        - Uncommon
+        - Common
+    PriceStrategy:
+      ComparisionAttributes:
+        # don´t check card languages
+        CardLanguage: true
+        SellerLanguage: true
+        Foil: true
+        Signed: true
+        Altered: true
+        Condition: 1
+      # offer cards as lowest seller
+      TargetPrice: Lowest
+      Min: 0.1
       Offset: 0
 
