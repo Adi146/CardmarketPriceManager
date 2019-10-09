@@ -42,6 +42,19 @@ Also you can specify the lowest and highest price.
 
 See config.py for more information.
 
+# Docker
+Build image:
+```
+docker build -t cardmarketpricemanager:latest .
+```
+Run container:
+```
+docker run -d --name CardmarketPriceManager -e MKM_ACCESS_TOKEN='...' -e MKM_ACCESS_TOKEN_SECRET='...' -e MKM_APP_TOKEN='...' -e MKM_APP_SECRET='...' cardmarketpricemanager:latest
+```
+Chek logs:
+```
+docker container logs CardmarketPriceManager
+```
 # Note
 This application is still work in progress. I am not responsible for any damage!
 
