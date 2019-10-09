@@ -1,10 +1,17 @@
+#!/usr/bin/env python
+
 from mkmsdk.mkm import Mkm
 from mkmsdk.api_map import _API_MAP
-from CardMarketPriceManager.config import getConfig
 from CardMarketPriceManager.CardCategory import CardCategory
 from CardMarketPriceManager.utils import checkForNextSite, numCards
+import argparse
+import yaml
 
-config = getConfig()
+parser = argparse.ArgumentParser("CardmarketPriceManager")
+parser.add_argument("--configFile", type=open, default="./config.yaml")
+args = parser.parse_args()
+
+config = yaml.safe_load(args.configFile)
 cardMarket = Mkm(_API_MAP["2.0"]["api"], _API_MAP["2.0"]["api_root"])
 
 priceChanges = []
@@ -50,7 +57,7 @@ while stock_response is not None:
                 break
         if not match:
             print("[" + str(i) + "/" + str(numCards(stock_response)) + "] Card: " + stock_article["product"][
-                "enName"] + " Doesn´t match any category!!!")
+                "enName"] + " Doesn't match any category!!!")
 
         if len(postData["article"]) == 100:
             cardMarket.stock_management.change_articles(data=postData)
