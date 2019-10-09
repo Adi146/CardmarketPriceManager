@@ -2,8 +2,8 @@
 
 from mkmsdk.mkm import Mkm
 from mkmsdk.api_map import _API_MAP
-from CardMarketPriceManager.CardCategory import CardCategory
-from CardMarketPriceManager.utils import checkForNextSite, numCards
+from CardmarketPriceManager.CardCategory import CardCategory
+from CardmarketPriceManager.utils import checkForNextSite, numCards
 import argparse
 import yaml
 
@@ -13,10 +13,6 @@ args = parser.parse_args()
 
 config = yaml.safe_load(args.configFile)
 cardMarket = Mkm(_API_MAP["2.0"]["api"], _API_MAP["2.0"]["api_root"])
-
-priceChanges = []
-newStockPrices = []
-oldStockPrices = []
 
 postData = {"article": []}
 
