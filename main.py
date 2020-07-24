@@ -6,10 +6,19 @@ from CardmarketPriceManager.CardCategory import CardCategory
 from CardmarketPriceManager.utils import checkForNextSite, numCards
 import argparse
 import yaml
+import logging
+import sys
 
 parser = argparse.ArgumentParser("CardmarketPriceManager")
 parser.add_argument("--configFile", type=open, default="./config.yaml")
 args = parser.parse_args()
+
+root = logging.getLogger()
+root.setLevel(logging.INFO)
+handler = logging.StreamHandler(sys.stdout)
+handler.setLevel(logging.INFO)
+handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
+root.addHandler(handler)
 
 config = yaml.safe_load(args.configFile)
 cardMarket = Mkm(_API_MAP["2.0"]["api"], _API_MAP["2.0"]["api_root"])
@@ -39,7 +48,7 @@ while stock_response is not None:
                 priceChange = round(targetPrice - stock_article["price"], 2)
 
                 if priceChange != 0.0:
-                    print("[" + str(i) + "/" + str(numCards(stock_response)) + " Category: " + str(
+                    logging.info("[" + str(i) + "/" + str(numCards(stock_response)) + " Category: " + str(
                         j + 1) + "] Card: " + stock_article["product"]["enName"] + " || New Price: " + str(
                         targetPrice) + " || Price Change: " + str(priceChange))
 
@@ -52,7 +61,7 @@ while stock_response is not None:
                     )
                 break
         if not match:
-            print("[" + str(i) + "/" + str(numCards(stock_response)) + "] Card: " + stock_article["product"][
+            logging.warn("[" + str(i) + "/" + str(numCards(stock_response)) + "] Card: " + stock_article["product"][
                 "enName"] + " Doesn't match any category!!!")
 
         if len(postData["article"]) == 100:
