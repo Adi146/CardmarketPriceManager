@@ -1,5 +1,5 @@
 import sys
-from CardmarketPriceManager.PriceStrategy import PriceStrategy
+from .PriceStrategy import PriceStrategy
 
 
 class CardCategory:

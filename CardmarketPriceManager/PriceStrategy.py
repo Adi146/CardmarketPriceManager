@@ -1,6 +1,6 @@
 import sys
 from enum import Enum
-from CardmarketPriceManager.conditionEnum import Condition
+from .conditionEnum import Condition
 from statistics import mean
 
 

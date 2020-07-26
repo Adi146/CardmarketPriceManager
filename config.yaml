@@ -1,6 +1,10 @@
+Exporters:
+  - Exporter:
+      Type: CSV
+      Path: ./export.csv
 Categories:
   - Category:
-      # All german and english rares and mythics
+      # all german and english rares and mythics under 5€
       Languages:
         - German
         - English
@@ -20,12 +24,12 @@ Categories:
         Signed: true
         Altered: true
         ConditionDeviation: 1
-      # offer cards as 5th lowest seller, with a minimum price of 10ct
+      # offer cards as 5th lowest seller with a minimum price of 10ct
       TargetPrice: Lowest
       MinPrice: 0.1
       Offset: 5
   - Category:
-      # all other rares and mythic from different languages which are not foil
+      # all other rares and mythic of different languages which are not foil and under 5€
       Rarities:
         - Rare
         - Mythic
@@ -40,11 +44,12 @@ Categories:
         Signed: true
         Altered: true
         Condition: 1
-      # offer cards as lowest seller
+      # offer cards as lowest seller with a minimum price of 10ct
       TargetPrice: Lowest
       Min: 0.1
       Offset: 0
   - Category:
+      # all german and english uncommons and commons under 5€
       Languages:
         - German
         - English
@@ -53,6 +58,7 @@ Categories:
         - Common
       MaxPrice: 5.0
     PriceStrategy:
+      # compare with other german and english offers which condition is max one step worse than yours
       ComparisionAttributes:
         CardLanguage:
           - English
@@ -62,28 +68,32 @@ Categories:
         Signed: true
         Altered: true
         ConditionDeviation: 1
+      # offer cards as 5th lowest seller with a minimum price of 5ct
       TargetPrice: Lowest
       MinPrice: 0.05
       Offset: 5
   - Category:
+      # all other uncommons and commons of different languages which are not foil and under 5€
       Rarities:
         - Uncommon
         - Common
       Foil: false
       MaxPrice: 5.0
     PriceStrategy:
+      # don´t check card languages
       ComparisionAttributes:
         CardLanguage: false
-        SellerLanguage: true
+        SellerCountry: true
         Foil: true
         Signed: true
         Altered: true
         Condition: 1
+      # offer cards as lowest seller with a minimum price of 5ct
       TargetPrice: Lowest
       Min: 0.05
       Offset: 0
   - Category:
-      # all other rares and mythic from different languages which are not foil
+      # all other rares, mythics, uncommons and commons
       Rarities:
         - Rare
         - Mythic
@@ -91,7 +101,6 @@ Categories:
         - Common
     PriceStrategy:
       ComparisionAttributes:
-        # don´t check card languages
         CardLanguage: true
         SellerLanguage: true
         Foil: true

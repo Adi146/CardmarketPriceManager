@@ -4,6 +4,7 @@ from mkmsdk.mkm import Mkm
 from mkmsdk.api_map import _API_MAP
 from CardmarketPriceManager.CardCategory import CardCategory
 from CardmarketPriceManager.utils import checkForNextSite, numCards
+from CardmarketPriceManager.Exporters.Exporter import createExporters
 import argparse
 import yaml
 import logging
@@ -26,8 +27,13 @@ cardMarket = Mkm(_API_MAP["2.0"]["api"], _API_MAP["2.0"]["api_root"])
 postData = {"article": []}
 
 categories = []
-for category in config["Categories"]:
-    categories.append(CardCategory(category, cardMarket))
+if "Categories" in config:
+    for category in config["Categories"]:
+        categories.append(CardCategory(category, cardMarket))
+
+exporters = []
+if "Exporters" in config:
+    exporters = createExporters(config["Exporters"])
 
 stock_response = cardMarket.stock_management.get_stock()
 if stock_response.status_code == 307:
@@ -52,6 +58,8 @@ while stock_response is not None:
                         j + 1) + "] Card: " + stock_article["product"]["enName"] + " || New Price: " + str(
                         targetPrice) + " || Price Change: " + str(priceChange))
 
+                    stock_article["price"] = targetPrice
+
                     postData["article"].append(
                         {
                             "idArticle": stock_article["idArticle"],
@@ -61,15 +69,21 @@ while stock_response is not None:
                     )
                 break
         if not match:
-            logging.warn("[" + str(i) + "/" + str(numCards(stock_response)) + "] Card: " + stock_article["product"][
+            logging.warning("[" + str(i) + "/" + str(numCards(stock_response)) + "] Card: " + stock_article["product"][
                 "enName"] + " Doesn't match any category!!!")
 
         if len(postData["article"]) == 100:
             cardMarket.stock_management.change_articles(data=postData)
             postData = {"article": []}
 
+        for exporter in exporters:
+            exporter.exportArticle(stock_article)
+
     stock_response = checkForNextSite(stock_response, cardMarket)
 
 if (len(postData["article"])) > 0:
     cardMarket.stock_management.change_articles(data=postData)
+
+for exporter in exporters:
+    exporter.close()
 
