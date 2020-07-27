@@ -40,7 +40,7 @@ if stock_response.status_code == 307:
     stock_response = cardMarket.resolver.api.request(cardMarket.api_map["stock_management"]["get_stock"]["url"] + "/1", "get")
 
 i = 0
-while stock_response is not None:
+while stock_response is not None and stock_response.status_code != 429:
     stock_json = stock_response.json()
 
     for stock_article in stock_json["article"]:

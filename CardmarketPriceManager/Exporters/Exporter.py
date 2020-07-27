@@ -5,7 +5,10 @@ def createExporters(config):
     for exporterConfig in config:
         if exporterConfig["Exporter"]["Type"] == "CSV":
             from .CsvExporter import CsvExporter
-            exporters.append(CsvExporter(exporterConfig["Exporter"])) 
+            exporters.append(CsvExporter(exporterConfig["Exporter"]))
+        elif exporterConfig["Exporter"]["Type"] == "Google Sheets":
+            from .GoogleSheetsExporter import GoogleSheetsExporter
+            exporters.append(GoogleSheetsExporter(exporterConfig["Exporter"]))
 
     return exporters
 

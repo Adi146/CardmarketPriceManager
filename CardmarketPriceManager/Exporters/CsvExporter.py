@@ -1,6 +1,5 @@
 from .Exporter import Exporter
 import csv
-import locale
 
 class CsvExporter(Exporter):
     HEAD_LINE = ["Card", "Set", "Language", "Condition", "Foil", "Signed", "Altered", "Playset", "Rarity", "Count", "Price"]

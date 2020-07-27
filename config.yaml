@@ -2,6 +2,10 @@ Exporters:
   - Exporter:
       Type: CSV
       Path: ./export.csv
+  - Exporter:
+      Type: Google Sheets
+      CredentialsFile: ./cardmarketpricem-cred.json
+      SheetName: Test
 Categories:
   - Category:
       # all german and english rares and mythics under 5€
