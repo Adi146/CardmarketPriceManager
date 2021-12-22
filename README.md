@@ -1,3 +1,5 @@
+❗❗❗ This tool does not work anylonger due to new limitations of the cardmarket API ❗❗❗
+
 # CardmarketPriceManager
 This is a tool to automatically manage prices of magic card on cardmarket.com.
 
